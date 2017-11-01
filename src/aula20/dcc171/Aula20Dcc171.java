@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,11 +35,21 @@ public class Aula20Dcc171 {
         Statement operacao;
         try {
         operacao = conexao.createStatement();
-            operacao.executeUpdate("CREATE TABLE produto ("
+            /*operacao.executeUpdate("CREATE TABLE IF NOT EXISTIS produto("
                     +"nome VARCHAR(80),"
                     +"qtd INTEGER, "
                     +"atualizado TIMESTAMP"
-                    +")");
+                    +")");*/
+            
+            Random rnd = new Random();
+            
+            String nome = "Mercadoria X";
+            Integer qtd = 10+rnd.nextInt(20);
+            operacao.executeUpdate("INSERT INTO produto (nome, qtd, atualizado) VALUES ('"
+                    +nome+ "',"
+                    +qtd+ ", CURRENT_TIMESTAMP)"
+            );
+            
         } catch (SQLException ex) {
             Logger.getLogger(Aula20Dcc171.class.getName()).log(Level.SEVERE, null, ex);
         }
